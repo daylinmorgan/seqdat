@@ -1,16 +1,18 @@
 [tool.poetry]
 name = "seqdat"
-version = "0.1.0"
-description = "brock lab sequencing data manager"
+version = "0.1.6"
+description = "sequencing data manager"
 authors = ["Daylin Morgan <daylinmorgan@gmail.com>"]
+repository = "https://github.com/daylinmorgan/seqdat"
+readme = "README.md"
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = ">=3.6,<3.11"
+python = ">=3.7*,<3.11"
 click = "^8.0.3"
 click-help-colors = "^0.9.1"
 rich = "^10.12.0"
-PyYAML = "^6.0"
+"ruamel.yaml" = "^0.17.17"
 
 [tool.poetry.dev-dependencies]
 black = "^21.10b0"
@@ -18,6 +20,7 @@ isort = "^5.10.0"
 flake8 = "^4.0.1"
 pre-commit = "^2.15.0"
 pyinstaller = "^4.6"
+mypy = "^0.910"
 
 [tool.poetry.scripts]
 seqdat = "seqdat.cli:main"
@@ -29,3 +32,8 @@ build-backend = "poetry.core.masonry.api"
 [tool.isort]
 profile = "black"
 multi_line_output = 3
+
+[tool.mypy]
+[[tool.mypy.overrides]]
+module=["ruamel","ruamel.yaml","click_help_colors"]
+ignore_missing_imports = true

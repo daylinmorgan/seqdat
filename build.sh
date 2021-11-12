@@ -6,4 +6,4 @@ pyinstaller \
 	--onefile \
 	--clean \
 	--name seqdat \
-	build.py
+	seqdat/cli.py
