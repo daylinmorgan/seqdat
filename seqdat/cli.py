@@ -86,12 +86,18 @@ def info(project_id: str, edit: bool, editor: str):
     """Render a project's README"""
     config = Config.load()
     readme = config.database / project_id / "README.md"
-
-    if not readme.is_file():
+    if not (config.database / project_id).is_dir():
         console.print(f"[red]Project {project_id} does not exist")
         console.print("You can start a new project with:")
-        console.print("\n\tseqdat init")
+        console.print(f"  [code]seqdat init --name {project_id}")
         sys.exit(1)
+
+    if not readme.is_file():
+        console.print("Unexpectedly this project exists but has no info sheet.")
+        console.print("You can generate one by re-running initialization:")
+        console.print(f"  [code]seqdat init --name {project_id} --skip-download")
+        sys.exit(1)
+
     if edit:
         click.edit(extension=".md", filename=readme, editor=editor)
     else:
