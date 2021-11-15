@@ -276,10 +276,13 @@ class Project:
 
         if info_sheet_path.exists():
             info_sheet_cont = get_existing_info_sheet(info_sheet_path)
+
         console.print("[blue] Job Info Sheet", justify="center", width=80)
         console.print(Panel(Markdown(info_sheet + info_sheet_cont), width=80))
 
-        if not Confirm.ask("Job Info Sheet Already Exists. Overwrite it?"):
+        if info_sheet_path.exists() and not Confirm.ask(
+            "Job Info Sheet Already Exists. Overwrite it?"
+        ):
             console.print("[info]Nothing written to job sheet")
         else:
             with info_sheet_path.open("w") as f:
