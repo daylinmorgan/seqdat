@@ -17,11 +17,14 @@ from .project import Project
 
 install(suppress=[click], show_locals=True)
 
+CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
+
 
 @click.group(
     cls=HelpColorsGroup,
     help_headers_color="yellow",
     help_options_color="magenta",
+    context_settings=CONTEXT_SETTINGS,
 )
 @click.version_option(__version__)
 def cli():
