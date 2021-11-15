@@ -4,6 +4,8 @@
 
 ## Usage
 
+See [docs](docs/usage.md) for more info. Also view available commands with `--help`.
+
 ```bash
 seqdat --help
 ```
@@ -18,6 +20,8 @@ cd seqdat
 mamba create -n seqdatdev python=3.7 poetry
 poetry install
 ```
+
+`Black`, `isort` and `flake8` are applied via `pre-commit`, additionally type checking should be enforced with `mypy seqdat`.
 
 After making some changes you can build a local executable using `pyinstaller`.
 
