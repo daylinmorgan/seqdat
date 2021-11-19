@@ -16,6 +16,7 @@ click = "^8.0.3"
 click-help-colors = "^0.9"
 rich = "^10.12.0"
 "ruamel.yaml" = "^0.17.17"
+click-rich-help = "^0.1.0"
 
 [tool.poetry.dev-dependencies]
 black = "^21.10b0"
@@ -38,5 +39,5 @@ multi_line_output = 3
 
 [tool.mypy]
 [[tool.mypy.overrides]]
-module=["ruamel","ruamel.yaml","click_help_colors"]
+module=["ruamel","ruamel.yaml","click_rich_help"]
 ignore_missing_imports = true

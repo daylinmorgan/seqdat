@@ -1,7 +1,7 @@
 import sys
 
 import click
-from click_rich_help import HelpColorsGroup
+from click_rich_help import HelpStylesGroup
 from rich.markdown import Markdown
 from rich.panel import Panel
 from rich.traceback import install
@@ -18,9 +18,10 @@ CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
 
 
 @click.group(
-    cls=HelpColorsGroup,
-    help_headers_style="yellow bold",
-    help_options_style="magenta italic",
+    cls=HelpStylesGroup,
+    headers_style="yellow bold",
+    options_style="magenta italic",
+    metavar_style="cyan",
     context_settings=CONTEXT_SETTINGS,
 )
 @click.version_option(__version__)
@@ -50,11 +51,6 @@ def config(generate: bool, update: bool, path: bool):
     else:
         config = Config.load()
         config.show()
-
-
-with console.capture() as capture:
-    console.print("additional parameters to pass to [yellow bold]bs download project")
-bs_params_help = capture.get()
 
 
 @cli.command()
@@ -113,7 +109,11 @@ def info(project_id: str, edit: bool, editor: str):
 
 
 @cli.command()
-@click.option("-bs", "--bs-params", help=bs_params_help)
+@click.option(
+    "-bs",
+    "--bs-params",
+    help="additional parameters to pass to [yellow bold]bs download project",
+)
 @click.option("-n", "--name", help="Name/Job Number for sequening project")
 @click.option("--owner", help="user who originally submitted job request")
 @click.option("--run-type", help="sequencer and chip type used in job")
