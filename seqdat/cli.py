@@ -69,7 +69,7 @@ def download(project_id: str, bs_params: str):
     [yellow]database/<PROJECT_ID>/data[/]
     \b
     Get the current database from your config with the below command:
-    [yellow]`seqdat config`[/]
+    [yellow]seqdat config[/]
     """
     project = Project.from_metadata(project_id, Config.load().database)
     project.fetch_data(bs_params)
