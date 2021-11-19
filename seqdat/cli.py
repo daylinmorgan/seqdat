@@ -1,12 +1,9 @@
 import sys
-from pathlib import Path
 
 import click
-from click_help_colors import HelpColorsCommand, HelpColorsGroup
-from rich import inspect
+from click_rich_help import HelpColorsGroup
 from rich.markdown import Markdown
 from rich.panel import Panel
-from rich.prompt import Prompt
 from rich.traceback import install
 
 from ._version import __version__
@@ -22,8 +19,8 @@ CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
 
 @click.group(
     cls=HelpColorsGroup,
-    help_headers_color="yellow",
-    help_options_color="magenta",
+    help_headers_style="yellow bold",
+    help_options_style="magenta italic",
     context_settings=CONTEXT_SETTINGS,
 )
 @click.version_option(__version__)
@@ -62,17 +59,21 @@ bs_params_help = capture.get()
 
 @cli.command()
 @click.argument("project_id")
-@click.option("-bs", "--bs-params", help=bs_params_help)
+@click.option(
+    "-bs",
+    "--bs-params",
+    help="additional parameters to pass to [yellow bold]bs download project",
+)
 def download(project_id: str, bs_params: str):
     """Download data from basespace for an existing project
 
     \b
     Alternatively you can download the data manually using the bs-cli
     by installing in the data directory of the project in the database:
-    database/<PROJECT_ID>/data
+    [yellow]database/<PROJECT_ID>/data[/]
     \b
     Get the current database from your config with the below command:
-    `seqdat config`
+    [yellow]`seqdat config`[/]
     """
     project = Project.from_metadata(project_id, Config.load().database)
     project.fetch_data(bs_params)

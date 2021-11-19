@@ -1,8 +1,7 @@
 import sys
-from dataclasses import InitVar, dataclass
-from os import PathLike
+from dataclasses import dataclass
 from pathlib import Path
-from typing import Dict, Optional, Union
+from typing import Dict, Optional
 
 import click
 from rich.prompt import Prompt

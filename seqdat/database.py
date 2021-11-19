@@ -1,7 +1,6 @@
 import operator
 import shutil
 import sys
-from pathlib import Path
 from typing import Iterable, List
 
 from rich import box

@@ -1,13 +1,9 @@
-import json
-import re
 import shutil
 import sys
 from pathlib import Path
-from typing import Dict, Iterator, List, Optional
+from typing import Dict, Iterator, List
 
-from rich import box, inspect
-from rich.columns import Columns
-from rich.layout import Layout
+from rich import box
 from rich.markdown import Markdown
 from rich.panel import Panel
 from rich.progress import Progress

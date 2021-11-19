@@ -1,7 +1,5 @@
 import re
-from os import PathLike
 from pathlib import Path
-from typing import Union
 
 from rich.prompt import Prompt
 
