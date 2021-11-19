@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "seqdat"
-version = "0.1.8"
+version = "0.1.9"
 description = "sequencing data manager"
 authors = ["Daylin Morgan <daylinmorgan@gmail.com>"]
 repository = "https://github.com/daylinmorgan/seqdat"
@@ -13,7 +13,6 @@ include = [
 [tool.poetry.dependencies]
 python = ">=3.7*,<3.11"
 click = "^8.0.3"
-click-help-colors = "^0.9"
 rich = "^10.12.0"
 "ruamel.yaml" = "^0.17.17"
 click-rich-help = "^0.1.0"
