@@ -70,22 +70,8 @@ colorama = {version = "*", markers = "platform_system == \"Windows\""}
 importlib-metadata = {version = "*", markers = "python_version < \"3.8\""}
 
 [[package]]
-name = "click-help-colors"
-version = "0.9.1"
-description = "Colorization of help messages in Click"
-category = "main"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-click = ">=7.0,<9"
-
-[package.extras]
-dev = ["pytest"]
-
-[[package]]
 name = "click-rich-help"
-version = "0.1.0"
+version = "0.2.0"
 description = "make a beautiful click app with rich"
 category = "main"
 optional = false
@@ -489,7 +475,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7*,<3.11"
-content-hash = "89420d27b8a13225d03b8a1a1e49235c07d401bd248293124d5c1d17d4c9f98c"
+content-hash = "017089e7b35af5d2c13f6189f5636b1489d25ae643e81ddd0b30f34e04786946"
 
 [metadata.files]
 altgraph = [
@@ -512,13 +498,9 @@ click = [
     {file = "click-8.0.3-py3-none-any.whl", hash = "sha256:353f466495adaeb40b6b5f592f9f91cb22372351c84caeb068132442a4518ef3"},
     {file = "click-8.0.3.tar.gz", hash = "sha256:410e932b050f5eed773c4cda94de75971c89cdb3155a72a0831139a79e5ecb5b"},
 ]
-click-help-colors = [
-    {file = "click-help-colors-0.9.1.tar.gz", hash = "sha256:78cbcf30cfa81c5fc2a52f49220121e1a8190cd19197d9245997605d3405824d"},
-    {file = "click_help_colors-0.9.1-py3-none-any.whl", hash = "sha256:25a6bd22d8abbc72c18a416a1cf21ab65b6120bee48e9637829666cbad22d51d"},
-]
 click-rich-help = [
-    {file = "click-rich-help-0.1.0.tar.gz", hash = "sha256:b834d4d074b99b819cce625724d20cbea17925fdd4a1650f9c0738581f09a99b"},
-    {file = "click_rich_help-0.1.0-py3-none-any.whl", hash = "sha256:887f3351847ec0b34170afedbde1c81d9dbf044b0fa417196e0cbe7431b0891c"},
+    {file = "click-rich-help-0.2.0.tar.gz", hash = "sha256:412a0735738b9b7429dab49eec1aee5c863fbc5f9a97820642ad40291b0d983b"},
+    {file = "click_rich_help-0.2.0-py3-none-any.whl", hash = "sha256:44ee833d1a74007547ba544b636a7980eea082a0b8de4436ccc9e910eba26777"},
 ]
 colorama = [
     {file = "colorama-0.4.4-py2.py3-none-any.whl", hash = "sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2"},

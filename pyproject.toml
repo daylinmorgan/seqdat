@@ -15,7 +15,7 @@ python = ">=3.7*,<3.11"
 click = "^8.0.3"
 rich = "^10.12.0"
 "ruamel.yaml" = "^0.17.17"
-click-rich-help = "^0.1.0"
+click-rich-help = "^0.2.0"
 
 [tool.poetry.dev-dependencies]
 black = "^21.10b0"

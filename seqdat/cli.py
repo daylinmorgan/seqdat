@@ -1,7 +1,7 @@
 import sys
 
 import click
-from click_rich_help import HelpStylesGroup
+from click_rich_help import StyledGroup
 from rich.markdown import Markdown
 from rich.panel import Panel
 from rich.traceback import install
@@ -18,7 +18,7 @@ CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
 
 
 @click.group(
-    cls=HelpStylesGroup,
+    cls=StyledGroup,
     headers_style="yellow bold",
     options_style="magenta italic",
     metavar_style="cyan",
