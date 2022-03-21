@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "seqdat"
-version = "0.1.10"
+version = "22.1.0"
 description = "sequencing data manager"
 authors = ["Daylin Morgan <daylinmorgan@gmail.com>"]
 repository = "https://github.com/daylinmorgan/seqdat"
