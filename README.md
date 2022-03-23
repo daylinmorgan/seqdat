@@ -39,4 +39,4 @@ This will fetch the necessary `rust`/`python` components necessary to compile ev
 
 Then you can find your final binary in `./build/x86_64-unknown-linux-gnu/debug/install/seqdat/`.
 
-*Note*: If you have `just` and `pyoxidizer` installed you can run `just install-bin` to build the binary and copy it to `~/bin`.
+*Note*: If you have `just` and `pyoxidizer` installed you can run `just build install-bin` to build the binary and copy it to `~/bin`.
