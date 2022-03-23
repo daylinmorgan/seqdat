@@ -17,11 +17,14 @@ To make changes to seqdat generate a new conda enviroment and install dependenci
 ```bash
 git clone git@github.com:daylinmorgan/seqdat.git
 cd seqdat
-mamba create -n seqdatdev python=3.7 poetry
+mamba create -p ./env python poetry
+mamba activate ./env
 poetry install
 ```
 
 `Black`, `isort` and `flake8` are applied via `pre-commit`, additionally type checking should be enforced with `mypy seqdat`.
+
+After making a patch or preparing new minor release use `bumpver` to update version and generate `git` tag and commit.
 
 ## Standalone Binary
 
