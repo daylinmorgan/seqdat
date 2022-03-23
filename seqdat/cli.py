@@ -6,7 +6,6 @@ from rich.markdown import Markdown
 from rich.panel import Panel
 from rich.traceback import install
 
-from ._version import __version__
 from .config import Config, _config_file
 from .console import console
 from .database import DataBase
@@ -24,7 +23,7 @@ CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
     metavar_style="cyan",
     context_settings=CONTEXT_SETTINGS,
 )
-@click.version_option(__version__)
+@click.version_option(package_name="seqdat")
 def cli():
     pass
 
@@ -244,14 +243,7 @@ def remove(project_id: str, data_only: bool):
 
 def main():
 
-    head = r"""
- __  _  _   _      ___
-(_  |_ / \ | \  /\  |
-__) |_ \_X |_/ /--\ |
-"""
-
-    console.print(head, style="magenta", highlight=False)
-    console.print("[green bold]SEQ[/]uencing [green bold]DAT[/]a manager.\n")
+    console.print("\n[green bold]SEQ[/]uencing [green bold]DAT[/]a manager.\n")
     cli()
 
 
