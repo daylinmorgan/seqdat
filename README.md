@@ -23,10 +23,17 @@ poetry install
 
 `Black`, `isort` and `flake8` are applied via `pre-commit`, additionally type checking should be enforced with `mypy seqdat`.
 
-After making some changes you can build a local executable using `pyinstaller`.
+## Standalone Binary
 
+Using `pyoxidizer` and the included config file you can easily generate a standalone binary to handle python and associated dependencies.
+
+Run the below command to generate the binary:
 ```bash
-./build.sh
+pyoxidizer build
 ```
 
-If pyinstaller completes successfully the executable will be in `dist/`
+This will fetch the necessary `rust`/`python` components necessary to compile everything.
+
+Then you can find your final binary in `./build/x86_64-unknown-linux-gnu/debug/install/seqdat/`.
+
+*Note*: If you have `just` and `pyoxidizer` installed you can run `just install-bin` to build the binary and copy it to `~/bin`.
