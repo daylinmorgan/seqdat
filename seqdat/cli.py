@@ -1,9 +1,11 @@
 import sys
+from pathlib import Path
 
 import click
 from click_rich_help import StyledGroup
 from rich.markdown import Markdown
 from rich.panel import Panel
+from rich.theme import Theme
 from rich.traceback import install
 
 from .config import Config, _config_file
@@ -15,12 +17,18 @@ install(suppress=[click], show_locals=True)
 
 CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
 
+theme_file = Path(click.get_app_dir("seqdat")) / "theme.ini"
+
+if theme_file.is_file():
+    theme = Theme.read(str(theme_file))
+else:
+    theme = Theme()
+
 
 @click.group(
     cls=StyledGroup,
-    headers_style="yellow bold",
-    options_style="magenta italic",
-    metavar_style="cyan",
+    styles={"headers": "yellow bold", "options": "green italic", "metavar": "cyan"},
+    theme=theme,
     context_settings=CONTEXT_SETTINGS,
 )
 @click.version_option(package_name="seqdat")

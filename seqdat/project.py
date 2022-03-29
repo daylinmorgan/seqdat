@@ -1,9 +1,11 @@
+import json
 import shutil
 import sys
 from pathlib import Path
 from typing import Dict, Iterator, List
 
 from rich import box
+from rich.json import JSON
 from rich.markdown import Markdown
 from rich.panel import Panel
 from rich.progress import Progress
@@ -12,7 +14,6 @@ from rich.syntax import Syntax
 from rich.table import Table
 
 from ._prompts import ask_name, ask_owner
-from ._yaml import yaml
 from .bs import download_data
 from .config import Config
 from .console import console
@@ -81,10 +82,12 @@ class Project:
 
         self.config = Config.load()
 
-        metapath = database / name / "meta.yml"
+        metapath = database / name / "meta.json"
 
         try:
-            metadata = yaml.load_file(metapath)
+            with metapath.open("r") as f:
+                metadata = json.load(f)
+
         except FileNotFoundError:
             console.print(f"[info]no metadata found for {name}")
             metadata = {
@@ -124,33 +127,36 @@ class Project:
     def save_metadata(self):
         """Write Project metadata to meta.yml."""
 
-        metapath = self.config.database / self.name / "meta.yml"
+        metapath = self.config.database / self.name / "meta.json"
         metadata = self.__dict__.copy()
         console.print(f"\nSaving metadata to {metapath}")
 
         if metapath.exists():
             console.print("found existing metadata file.")
-            old_meta = yaml.load_file(metapath)
+            with metapath.open("r") as f:
+                old_meta = json.load(f)
+
             if old_meta == metadata:
                 console.print("metadata is the same as the old one, nothing to change")
                 return
-            old_meta = Syntax.from_path(metapath, code_width=50, word_wrap=True)
+
             table = Table(box=box.SIMPLE)
 
             table.add_column("[hl]old metadata", max_width=50)
             table.add_column("[hl]new metadata", max_width=50)
-            table.add_row(old_meta, Syntax(yaml.dump(metadata), "yaml", word_wrap=True))
+            table.add_row(JSON.from_data(old_meta), JSON.from_data(metadata))
             console.print(table)
 
             if Confirm.ask("would you like to overwrite it?"):
-                console.print("saving metadata to meta.yml")
+                console.print("saving metadata to meta.json")
             else:
-                console.print("[info]nothing written to meta.yml")
+                console.print("[info]nothing written to meta.json")
                 return
         else:
             metapath.parent.mkdir(exist_ok=True)
 
-        yaml.save_file(metapath, metadata)
+        with metapath.open("w") as f:
+            json.dump(metadata, f, indent=4)
 
     def update_metadata(self):
         """Update metadata attributes of Project."""

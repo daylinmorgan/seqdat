@@ -4,13 +4,13 @@ from pathlib import Path
 from typing import Dict, Optional
 
 import click
+import tomlkit
 from rich.prompt import Prompt
 
 from ._prompts import ask_database
-from ._yaml import yaml
 from .console import console
 
-_config_file = Path(click.get_app_dir("seqdat")) / "config.yml"
+_config_file = Path(click.get_app_dir("seqdat")) / "config.toml"
 
 
 @dataclass
@@ -45,7 +45,9 @@ class Config:
         data = {"database": str(), "user": str()}
 
         try:
-            data.update(**yaml.load_file(_config_file))
+            # data.update(**yaml.load_file(_config_file))
+            with _config_file.open("r") as f:
+                data.update(**tomlkit.load(f))
         except FileNotFoundError:
             console.print("[error]Config file not found.[/]")
             console.print(
@@ -96,7 +98,9 @@ class Config:
         _config_file.parent.mkdir(parents=True, exist_ok=True)
 
         console.print(f"Saving config to {_config_file}")
-        yaml.save_file(_config_file, self._sanitize_config())
+        # yaml.save_file(_config_file, self._sanitize_config())
+        with _config_file.open("w") as f:
+            tomlkit.dump(self._sanitize_config(), f)
 
 
 def _is_valid_database(database: str) -> Path:

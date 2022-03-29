@@ -171,6 +171,8 @@ class DataBase:
 
         if self.config.user != project.owner:
             console.print("[error]You are about to delete another user's project/data")
+            if not Confirm.ask("Would you like to continue?"):
+                sys.exit()
 
         if data_only:
             project_data_dir = self.config.database / project.name / "data"
@@ -199,6 +201,5 @@ class DataBase:
                         shutil.rmtree(sample_dir)
                     except OSError as e:
                         print(f"[error]Error: {e.filename} - {e.strerror}.")
-
         else:
-            pass
+            shutil.rmtree(self.config.database / project.name)
