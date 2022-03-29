@@ -36,7 +36,7 @@ multi_line_output = 3
 
 [tool.bumpver]
 current_version = "v22.1.0"
-version_pattern = "vYY.MAJOR.MINOR[-TAG]"
+version_pattern = "vYY.MINOR.PATCH[-TAG]"
 commit_message = "bump version {old_version} -> {new_version}"
 commit = true
 tag = true

@@ -26,7 +26,7 @@ poetry install
 
 With `just` you can run `just lint`.
 
-After making a patch or preparing new minor release use `bumpver` to update version and generate `git` tag and commit.
+After making a patch or preparing new minor release use `bumpver` to update version and generate the `git` tag and commit.
 
 ## Standalone Binary
 
