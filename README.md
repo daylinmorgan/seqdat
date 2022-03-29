@@ -24,6 +24,8 @@ poetry install
 
 `Black`, `isort` and `flake8` are applied via `pre-commit`, additionally type checking should be enforced with `mypy seqdat`.
 
+With `just` you can run `just lint`.
+
 After making a patch or preparing new minor release use `bumpver` to update version and generate `git` tag and commit.
 
 ## Standalone Binary
@@ -32,11 +34,11 @@ Using `pyoxidizer` and the included config file you can easily generate a standa
 
 Run the below command to generate the binary:
 ```bash
-pyoxidizer build
+pyoxidizer build --release
 ```
 
 This will fetch the necessary `rust`/`python` components necessary to compile everything.
 
-Then you can find your final binary in `./build/x86_64-unknown-linux-gnu/debug/install/seqdat/`.
+Then you can find your final binary in `./build/x86_64-unknown-linux-gnu/release/install/seqdat/`.
 
-*Note*: If you have `just` and `pyoxidizer` installed you can run `just build install-bin` to build the binary and copy it to `~/bin`.
+*Note*: If you have `just` and `pyoxidizer` installed you can run `just build install` to build the binary and copy it to `~/bin`.
