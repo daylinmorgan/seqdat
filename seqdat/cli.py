@@ -27,8 +27,8 @@ else:
 
 @click.group(
     cls=StyledGroup,
-    styles={"headers": "yellow bold", "options": "green italic", "metavar": "cyan"},
     theme=theme,
+    use_theme="default",
     context_settings=CONTEXT_SETTINGS,
 )
 @click.version_option(package_name="seqdat")
