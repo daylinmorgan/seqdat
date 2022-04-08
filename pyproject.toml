@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "seqdat"
-version = "22.1.1"
+version = "22.1.2"
 description = "sequencing data manager"
 authors = ["Daylin Morgan <daylinmorgan@gmail.com>"]
 repository = "https://github.com/daylinmorgan/seqdat"
@@ -35,7 +35,7 @@ profile = "black"
 multi_line_output = 3
 
 [tool.bumpver]
-current_version = "v22.1.1"
+current_version = "v22.1.2"
 version_pattern = "vYY.MINOR.PATCH[-TAG]"
 commit_message = "bump version {old_version} -> {new_version}"
 commit = true
