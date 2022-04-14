@@ -199,6 +199,11 @@ def meta(project_id: str, update: bool, update_samples: bool, basespace: bool):
 @click.option("-o", "--out", help="directory to move files to", required=True)
 @click.option("-p", "--prefix", help="prefix for output files", default="")
 @click.option(
+    "--samples",
+    help="comma seperated list of samples ('sample1,sample2,sample4')",
+    type=str,
+)
+@click.option(
     "-s",
     "--suffix",
     help="suffix for output files (before file extension)",
@@ -206,12 +211,14 @@ def meta(project_id: str, update: bool, update_samples: bool, basespace: bool):
     show_default=True,
 )
 @click.option("--paired-end", help="move data in paired end mode", is_flag=True)
-def move(project_id: str, out: str, prefix: str, suffix: str, paired_end: bool):
+def move(
+    project_id: str, out: str, samples: str, prefix: str, suffix: str, paired_end: bool
+):
     """Concatenate and move files to new directory"""
 
     project = Project.from_metadata(project_id, database=Config.load().database)
 
-    project.move_data(out, prefix, suffix, paired_end)
+    project.move_data(out, prefix, suffix, paired_end, move_samples_str=samples)
 
     console.print("[green]finished moving files")
 

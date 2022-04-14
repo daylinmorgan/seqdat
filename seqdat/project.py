@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Dict, Iterator, List
 
 from rich import box
+from rich.columns import Columns
 from rich.json import JSON
 from rich.markdown import Markdown
 from rich.panel import Panel
@@ -25,7 +26,11 @@ class Project:
     config: Config
 
     def __init__(
-        self, name: str, owner: str, run_type: str = None, samples: List[str] = None
+        self,
+        name: str,
+        owner: str,
+        run_type: str = None,
+        samples: List[str] = None,
     ):
         """initialize project.
 
@@ -212,7 +217,14 @@ class Project:
         except FileNotFoundError:
             console.print(f"[info]no data currently available for project: {self.name}")
 
-    def move_data(self, out: str, prefix: str, suffix: str, paired_end: bool):
+    def move_data(
+        self,
+        out: str,
+        prefix: str,
+        suffix: str,
+        paired_end: bool,
+        move_samples_str: str,
+    ):
         """Simultaneosly concatenate and move data.
 
         Args:
@@ -240,9 +252,7 @@ class Project:
         try:
             out_path.mkdir(parents=True)
         except FileExistsError:
-            console.print(
-                f"[error]{out} already exists I'm not going to overwrite anything in it."
-            )
+            console.print(f"[error]{out} already exists I'm not going to overwrite it.")
             sys.exit(1)
 
         path_to_data = self.config.database / self.name / "data"
@@ -251,8 +261,57 @@ class Project:
         for file in path_to_data.glob("**/*.fastq.gz"):
             sample_files.setdefault(file.name.split("_")[0], []).append(file)
 
+        if move_samples_str:
+            move_samples = move_samples_str.split(",")
+            # TODO: refactor to add red color to bad file names
+            if not all(i in sample_files.keys() for i in move_samples):
+                console.print("[bold red]Error[/]: Unknown sample provided.")
+                console.print(
+                    "Please check that the sample names you provided: ", end=""
+                )
+                console.print(
+                    ", ".join(
+                        [
+                            f"[red]{sample}"
+                            if sample not in sample_files.keys()
+                            else sample
+                            for sample in sorted(move_samples)
+                        ]
+                    )
+                )
+                console.print(
+                    f"Matches the project's samples: {' '.join(sorted(sample_files))}"
+                )
+                out_path.rmdir()
+                sys.exit(1)
+        else:
+            move_samples = sorted(list(sample_files.keys()))
+
+        samples = [
+            f"[b cyan]{sample}[/]" if sample in move_samples else f"[dim]{sample}[/]"
+            for sample in sorted(sample_files)
+        ]
+
+        console.print(
+            Columns(
+                ["\n".join(samples[start::3]) for start in range(3)],
+                padding=5,
+                title="[yellow]Samples to move",
+            ),
+            "\n",
+        )
+
+        if not Confirm.ask(
+            f"Move the {len(move_samples)} [cyan]highlighted[/] samples to {out_path}"
+        ):
+            console.print(f"Nothing written to {out_path}")
+            out_path.rmdir()
+            sys.exit(0)
+        else:
+            sample_files = {k: v for k, v in sample_files.items() if k in move_samples}
+
         console.print(f"[info]Moving data to {out_path}")
-        for sample, files in sample_files.items():
+        for sample, files in sorted(sample_files.items()):
 
             cat_fastqgz(sample, files, out_path, prefix, suffix, paired_end)
 
