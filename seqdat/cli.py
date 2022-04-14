@@ -8,6 +8,7 @@ from rich.panel import Panel
 from rich.theme import Theme
 from rich.traceback import install
 
+from ._version import __version__
 from .config import Config, _config_file
 from .console import console
 from .database import DataBase
@@ -31,7 +32,7 @@ else:
     use_theme="default",
     context_settings=CONTEXT_SETTINGS,
 )
-@click.version_option(package_name="seqdat")
+@click.version_option(__version__)
 def cli():
     pass
 
