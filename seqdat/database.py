@@ -5,9 +5,9 @@ from typing import Iterable, List
 
 from rich import box
 from rich.columns import Columns
-from rich.panel import Panel
 from rich.prompt import Confirm
 from rich.table import Table
+from rich.text import Text
 
 from .config import Config
 from .console import console
@@ -174,32 +174,39 @@ class DataBase:
             if not Confirm.ask("Would you like to continue?"):
                 sys.exit()
 
+        project_data_dir = self.config.database / project.name / "data"
+
+        data = [
+            sample_dir
+            for sample_dir in (project_data_dir).iterdir()
+            if sample_dir.is_dir()
+        ]
+
+        if not project.samples:
+            project.identify_samples()
+
+        if project.samples:
+            console.print(f"Found the following data for project: [hl]{name}\n")
+            console.print(
+                Columns(
+                    [Text("\n".join(project.samples[start::3])) for start in range(3)],
+                    padding=5,
+                    title=f"[yellow]{len(project.samples)} Samples to Remove",
+                ),
+                "\n",
+            )
+        else:
+            console.print(f"[error]Project {project.name} has no sample files.")
+
+        if not Confirm.ask("Would you like to remove this data [info]permanently?"):
+            console.print("Nothing removed")
+            sys.exit(0)
+
         if data_only:
-            project_data_dir = self.config.database / project.name / "data"
-
-            data = [
-                sample_dir
-                for sample_dir in (project_data_dir).iterdir()
-                if sample_dir.is_dir()
-            ]
-
-            if not project.samples:
-                project.identify_samples()
-
-            if project.samples:
-                console.print(f"Found the following data for project: [hl]{name}")
-                samples = [Panel(sample) for sample in project.samples]
-            else:
-                console.print(f"[error]Project {project.name} has no sample files.")
-            num_samples = len(samples)
-            width = 70
-            console.print(f"[blue]{num_samples} Samples")
-            console.print(Columns(samples), width=width)
-            if Confirm.ask("Would you like to remove this data [info]permanently?"):
-                for sample_dir in data:
-                    try:
-                        shutil.rmtree(sample_dir)
-                    except OSError as e:
-                        print(f"[error]Error: {e.filename} - {e.strerror}.")
+            for sample_dir in data:
+                try:
+                    shutil.rmtree(sample_dir)
+                except OSError as e:
+                    print(f"[error]Error: {e.filename} - {e.strerror}.")
         else:
             shutil.rmtree(self.config.database / project.name)
