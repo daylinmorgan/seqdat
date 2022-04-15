@@ -401,7 +401,7 @@ def cat_fastqgz(
 
         if paired_end:
 
-            with (out / f"{sample}.R1.raw.fastq.gz").open("wb") as out_f:
+            with (out / f"{sample}.R1{suffix}.fastq.gz").open("wb") as out_f:
 
                 for fastqgz in r1_files:
                     with fastqgz.open("rb") as in_f:
@@ -418,7 +418,7 @@ def cat_fastqgz(
                     f"\n[error]{sample} has R2 files. Did you mean to run in [code]--paired-end[/] mode?"
                 )
                 sys.exit(1)
-            with (out / f"{sample}.raw.fastq.gz").open("wb") as out_f:
+            with (out / f"{prefix}{sample}{suffix}.fastq.gz").open("wb") as out_f:
                 for fastqgz in files:
                     with fastqgz.open("rb") as in_f:
                         shutil.copyfileobj(in_f, out_f)
