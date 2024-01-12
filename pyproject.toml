@@ -1,49 +1,34 @@
-[tool.poetry]
+[project]
 name = "seqdat"
 version = "22.1.3"
 description = "sequencing data manager"
-authors = ["Daylin Morgan <daylinmorgan@gmail.com>"]
-repository = "https://github.com/daylinmorgan/seqdat"
+authors = [
+    {name = "Daylin Morgan", email = "daylinmorgan@gmail.com"},
+]
+dependencies = [
+    "click<9.0.0,>=8.0.3",
+    "rich>=10.12.0",
+    "click-rich-help>=0.3.0",
+    "tomlkit>=0.10.1",
+]
+requires-python = ""
 readme = "README.md"
-license = "MIT"
-include = ["LICENSE"]
+license = {text = "MIT"}
 
-[tool.poetry.dependencies]
-python = ">=3.7*,<3.11"
-click = "^8.0.3"
-rich = ">=10.12.0"
-click-rich-help = ">=0.3.0"
-tomlkit = ">=0.10.1"
+[project.urls]
+repository = "https://github.com/daylinmorgan/seqdat"
 
-[tool.poetry.dev-dependencies]
-black = "^22.3.0"
-isort = "^5.10.1"
-flake8 = "^4.0.1"
-pre-commit = "^2.15.0"
-mypy = "^0.910"
-bumpver = "^2022.1116"
-
-[tool.poetry.scripts]
+[project.scripts]
 seqdat = "seqdat.cli:main"
 
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+[tool.pdm.build]
+includes = ["LICENSE"]
 
-[tool.isort]
-profile = "black"
-multi_line_output = 3
-
-[tool.bumpver]
-current_version = "v22.1.3"
-version_pattern = "vYY.MINOR.PATCH[-TAG]"
-commit_message = "bump version {old_version} -> {new_version}"
-commit = true
-tag = true
-
-[tool.bumpver.file_patterns]
-"pyproject.toml" = [
-  'current_version = "{version}"',
-  'version = "{pep440_version}"',
+[tool.pdm.dev-dependencies]
+dev = [
+    "mypy",
 ]
-"seqdat/_version.py" = ['__version__ = "{pep440_version}"']
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
