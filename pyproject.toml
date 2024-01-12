@@ -1,3 +1,7 @@
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
 [project]
 name = "seqdat"
 description = "sequencing data manager"
@@ -29,6 +33,6 @@ source = "scm"
 write_to = "seqdat/_version.py"
 write_template = "__version__ = '{}'"
 
-[build-system]
-requires = ["pdm-backend"]
-build-backend = "pdm.backend"
+[tool.ruff]
+select = ["E","F","I"]
+ignore = ["E402"]
