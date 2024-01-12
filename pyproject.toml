@@ -11,7 +11,7 @@ dependencies = [
     "click-rich-help>=0.3.0",
     "tomlkit>=0.10.1",
 ]
-requires-python = ""
+requires-python = ">=3.8"
 readme = "README.md"
 license = {text = "MIT"}
 
@@ -21,13 +21,8 @@ repository = "https://github.com/daylinmorgan/seqdat"
 [project.scripts]
 seqdat = "seqdat.cli:main"
 
-[tool.pdm.build]
-includes = ["LICENSE"]
-
 [tool.pdm.dev-dependencies]
-dev = [
-    "mypy",
-]
+dev = ["mypy"]
 
 [build-system]
 requires = ["pdm-backend"]
