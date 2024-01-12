@@ -173,7 +173,8 @@ class Project:
         for k, v in metadata.items():
             if k == "samples":
                 console.print(
-                    f"[hl]\n>>NOTE: [/]to update sample list run [yellow]seqdat meta {self.name} --update-samples"
+                    "[hl]\n>>NOTE: [/]to update sample list run "
+                    f"[yellow]seqdat meta {self.name} --update-samples"
                 )
             else:
                 updated_metadata[k] = Prompt.ask(f"[blue]{k}", default=v)
@@ -194,7 +195,9 @@ class Project:
             bs_params (str): parameters to pass to bs download project
         """
         console.print("Fetching data from Basespace with below command")
-        cmd = f"[code]  bs project download --name [hl]{self.name}[/] -o {self.config.database}/{self.name}/data {bs_params or ''}"
+        cmd = "[code]  bs project download --name "
+        f"[hl]{self.name}[/] -o {self.config.database}"
+        f"/{self.name}/data {bs_params or ''}"
         console.print(f"\n {cmd}\n")
 
         download_data(self.config.database, self.name, bs_params)
@@ -231,7 +234,8 @@ class Project:
             out (str): directory to transfer data to
             prefix (str): prefix to add to file names
             suffix (str): suffix (before file extension) to add to file names
-            paired_end (bool): if true, run in paired-end mode and concatenate R1/R2 seperately
+            paired_end (bool):
+              if true, run in paired-end mode and concatenate R1/R2 seperately
         """
 
         if not self.samples:
@@ -242,7 +246,8 @@ class Project:
                     "You can download directly from basespace with below command:"
                 )
                 console.print(
-                    f"[code]bs download project -n {self.name} -o {self.config.database}/{self.name}/data"
+                    f"[code]bs download project -n "
+                    f"{self.name} -o {self.config.database}/{self.name}/data"
                 )
                 console.print(f"Or rerun: [code]seqdat init --name {self.name}")
                 sys.exit(1)
@@ -312,7 +317,6 @@ class Project:
 
         console.print(f"[info]Moving data to {out_path}")
         for sample, files in sorted(sample_files.items()):
-
             cat_fastqgz(sample, files, out_path, prefix, suffix, paired_end)
 
             console.print(f"[hl]{sample}[/] moved")
@@ -363,7 +367,6 @@ def get_existing_info_sheet(info_sheet_path: Path) -> str:
 
     info_sheet_cont = "## Additional Info\n"
     with info_sheet_path.open("r") as f:
-
         while "## Additional Info" not in next(f):
             pass
         for line in f:
@@ -388,7 +391,8 @@ def cat_fastqgz(
         out (Path): directory to transfer data to
         prefix (str): prefix to add to file names
         suffix (str): suffix (before file extension) to add to file names
-        paired_end (bool): if true, run in paired-end mode and concatenate R1/R2 seperately
+        paired_end (bool):
+          if true, run in paired-end mode and concatenate R1/R2 seperately
     """
 
     with Progress(transient=True) as progress:
@@ -400,9 +404,7 @@ def cat_fastqgz(
         r2_files = [f for f in files if "_R2_" in f.name]
 
         if paired_end:
-
             with (out / f"{sample}.R1{suffix}.fastq.gz").open("wb") as out_f:
-
                 for fastqgz in r1_files:
                     with fastqgz.open("rb") as in_f:
                         shutil.copyfileobj(in_f, out_f)
@@ -415,7 +417,8 @@ def cat_fastqgz(
         else:
             if r2_files:
                 console.print(
-                    f"\n[error]{sample} has R2 files. Did you mean to run in [code]--paired-end[/] mode?"
+                    f"\n[error]{sample} has R2 files. "
+                    "Did you mean to run in [code]--paired-end[/] mode?"
                 )
                 sys.exit(1)
             with (out / f"{prefix}{sample}{suffix}.fastq.gz").open("wb") as out_f:

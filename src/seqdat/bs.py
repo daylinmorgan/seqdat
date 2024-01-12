@@ -11,7 +11,8 @@ def download_data(database: Path, name: str, bs_params: str = None):
     Args:
         database (Path): path to the seqdat database
         name (str): name/job id of the sequencing project
-        bs_params (str, optional): parameters to pass to `bs download project` . Defaults to None.
+        bs_params (str, optional):
+          parameters to pass to `bs download project` . Defaults to None.
     """
 
     cmd = (

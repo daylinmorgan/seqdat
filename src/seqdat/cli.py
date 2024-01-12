@@ -145,8 +145,9 @@ def init(bs_params: str, name: str, owner: str, run_type: str, skip_download: bo
     console.print("Don't forget to update the project info sheet!")
     console.print(f"\n[code]  seqdat info {project.name} --edit")
 
+
 # alias of list just for tyler
-@cli.command(name="ls", hidden = True)
+@cli.command(name="ls", hidden=True)
 @click.option("-l", "--limit", help="maximum number of projects to include", type=int)
 @click.option(
     "-f",
@@ -163,6 +164,7 @@ def list_jobs_alias(limit: int, field: str, ascending: bool):
     """List all available sequencing projects"""
     db = DataBase()
     db.display_projects(projects=[], limit=limit, field=field, ascending=ascending)
+
 
 @cli.command(name="list")
 @click.option("-l", "--limit", help="maximum number of projects to include", type=int)
@@ -276,9 +278,8 @@ def remove(project_id: str, data_only: bool):
 
 
 def main():
-
     console.print("\n[green bold]SEQ[/]uencing [green bold]DAT[/]a manager.\n")
-    cli(prog_name='seqdat')
+    cli(prog_name="seqdat")
 
 
 if __name__ == "__main__":

@@ -51,7 +51,8 @@ class Config:
         except FileNotFoundError:
             console.print("[error]Config file not found.[/]")
             console.print(
-                "Please run [code]seqdat config --generate[/] to generate a config file."
+                "Please run [code]seqdat config --generate[/]"
+                " to generate a config file."
             )
             sys.exit(1)
 
@@ -64,7 +65,6 @@ class Config:
 
     @classmethod
     def make(self):
-
         if _config_file.is_file():
             console.print("[error]Warning[/]: Config file already exists.")
             console.print("Did you mean to run [code]seqdat config --update[/]?")

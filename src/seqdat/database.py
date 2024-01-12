@@ -25,7 +25,8 @@ class DataBase:
         """Generate a list of projects from database directory.
 
         Returns:
-            List[Project]: project derived from database directory, dependent on valid metadata
+            List[Project]: project derived from database directory,
+              dependent on valid metadata
         """
         projects = [
             Project.from_metadata(project_dir.name, self.config.database)
@@ -68,7 +69,6 @@ class DataBase:
         )
 
         for project in sorted_projects[:limit]:
-
             num_samples = str(len(project.samples) if project.samples else "n/a")
             table.add_row(project.name, project.owner, num_samples, project.run_type)
 
@@ -86,13 +86,16 @@ class DataBase:
         Current implementation doesn't require a match of all search fields.
 
         Args:
-            owner (str, optional): owner/user to search for. Defaults to None.
-            run_type (str, optional): type of run to search for. Defaults to None.
-            sample (str, optional): samples to search for in metadata. Defaults to None.
-            info (str, optional): short text to look for in info sheet. Defaults to None.
+            owner (str, optional): owner/user to search for.
+            run_type (str, optional): type of run to search for.
+            sample (str, optional): samples to search for in metadata.
+            info (str, optional): short text to look for in info sheet.
+
+            All default to None.
         """
         console.print(
-            "[magenta]Warning![/] This feature is still experimental and subject to change in future releases\n"
+            "[magenta]Warning![/] This feature is still experimental "
+            "and subject to change in future releases\n"
         )
 
         if all(v is None for v in [owner, run_type, sample, info]):
@@ -165,7 +168,8 @@ class DataBase:
         except KeyError:
             console.print(f"[error]Project [hl]{name}[/] not found")
             console.print(
-                "Please use [code]seqdat list[/] or [code]seqdat query[/] to view projects"
+                "Please use [code]seqdat list[/] or "
+                "[code]seqdat query[/] to view projects"
             )
             sys.exit()
 
